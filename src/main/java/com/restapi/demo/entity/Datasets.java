@@ -1,9 +1,12 @@
 package com.restapi.demo.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import jakarta.persistence.*;
-import org.hibernate.annotations.JoinColumnOrFormula;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Entity
 @Table(name = "datasets")
@@ -12,23 +15,27 @@ public class Datasets {
     @Id
     private String id;
 
-    @Column(columnDefinition = "json")
-    private String dataSchema;
+    @JdbcTypeCode(SqlTypes.JSON) // Use this for Hibernate 6+
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> dataSchema;
 
-    @Column(columnDefinition = "json")
-    private String routerConfig;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> routeConfig;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
     private String createdBy;
+
     private String updatedBy;
 
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdDate;
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime updatedDate;
+    @CreationTimestamp
+    private LocalDateTime updatedAt;
 }
 
 enum Status {
