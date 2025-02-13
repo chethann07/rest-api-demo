@@ -23,4 +23,11 @@ public class RestService {
     public Datasets createDataset(Datasets dataset){
         return dataAccessRepository.save(dataset);
     }
+
+    public Datasets getDatasetById(String id){
+        if(dataAccessRepository.findById(id).isPresent()) {
+            return dataAccessRepository.findById(id).get();
+        }
+        return null;
+    }
 }
