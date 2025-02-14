@@ -128,8 +128,3 @@ public class Datasets {
     }
 }
 
-enum Status {
-    LIVE,
-    DRAFT,
-    RETIRED
-}

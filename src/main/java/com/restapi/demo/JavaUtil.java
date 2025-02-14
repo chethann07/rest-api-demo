@@ -1,5 +1,6 @@
 package com.restapi.demo;
 
+import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,14 @@ public class JavaUtil {
         try{
             return mapper.readValue(requestBody, InputClass);
         }catch (Exception e){
+            throw new RuntimeException("Failed to Deserialize", e);
+        }
+    }
+
+    public static <T> T Deserialization(Object inputObject, Class<T> InputClass){
+        try{
+            return mapper.convertValue(inputObject, InputClass);
+        }catch (IllegalArgumentException e){
             throw new RuntimeException("Failed to Deserialize", e);
         }
     }
