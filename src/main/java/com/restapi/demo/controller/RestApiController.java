@@ -63,7 +63,7 @@ public class RestApiController {
         }
     }
 
-    @GetMapping("/get{id}")
+    @GetMapping("/get/{id}")
     public Datasets getDatasetById(@PathVariable String id) {
         if(restService.getDatasetById(id) != null){
             return restService.getDatasetById(id);
