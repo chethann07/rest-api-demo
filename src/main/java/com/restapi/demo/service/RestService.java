@@ -4,6 +4,7 @@ import com.restapi.demo.dao.DataAccessRepository;
 import com.restapi.demo.entity.Datasets;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,12 +14,10 @@ import java.util.List;
 public class RestService {
 
     private final DataAccessRepository dataAccessRepository;
-    private final EntityManager entityManager;
 
     @Autowired
-    public RestService(DataAccessRepository dataAccessRepository, EntityManager entityManager) {
+    public RestService(DataAccessRepository dataAccessRepository) {
         this.dataAccessRepository = dataAccessRepository;
-        this.entityManager = entityManager;
     }
 
     public List<Datasets> getAllDatasets(){
@@ -26,8 +25,8 @@ public class RestService {
     }
 
     @Transactional
-    public void createDataset(Datasets dataset){
-        entityManager.persist(dataset);
+    public Datasets createDataset(Datasets dataset){
+        return dataAccessRepository.save(dataset);
     }
 
     public Datasets getDatasetById(String id){

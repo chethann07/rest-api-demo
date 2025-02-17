@@ -39,5 +39,4 @@ public class JavaUtil {
             throw new RuntimeException("Failed to Serialize", e);
         }
     }
-
 }

@@ -2,6 +2,7 @@ package com.restapi.demo.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
 import jakarta.persistence.*;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 public class Datasets {
 
     @Id
+    @GeneratedValue(strategy =  GenerationType.UUID)
     private String id;
 
     @JdbcTypeCode(SqlTypes.JSON) // Use this for Hibernate 6+
@@ -34,14 +36,13 @@ public class Datasets {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Datasets() {
     }
 
-    public Datasets(String id, Map<String, Object> dataSchema, Map<String, Object> routeConfig, Status status, String createdBy, String updatedBy) {
-        this.id = id;
+    public Datasets(Map<String, Object> dataSchema, Map<String, Object> routeConfig, Status status, String createdBy, String updatedBy) {
         this.dataSchema = dataSchema;
         this.routeConfig = routeConfig;
         this.status = status;
