@@ -14,7 +14,6 @@ import java.util.Map;
 public class Datasets {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.UUID)
     private String id;
 
     @JdbcTypeCode(SqlTypes.JSON) // Use this for Hibernate 6+
@@ -42,7 +41,8 @@ public class Datasets {
     public Datasets() {
     }
 
-    public Datasets(Map<String, Object> dataSchema, Map<String, Object> routeConfig, Status status, String createdBy, String updatedBy) {
+    public Datasets(String id, Map<String, Object> dataSchema, Map<String, Object> routeConfig, Status status, String createdBy, String updatedBy) {
+        this.id = id;
         this.dataSchema = dataSchema;
         this.routeConfig = routeConfig;
         this.status = status;
