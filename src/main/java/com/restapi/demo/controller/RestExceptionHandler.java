@@ -42,7 +42,7 @@ public class RestExceptionHandler {
         message.put("message", "some of the fields are missing");
         message.put("status", HttpStatus.INTERNAL_SERVER_ERROR.toString());
         message.put("timestamp", LocalDateTime.now().toString());
-        return ResponseEntity.internalServerError().body(message);
+        return ResponseEntity.badRequest().body(message);
     }
 
     @ExceptionHandler(InputMismatchException.class)
@@ -50,7 +50,7 @@ public class RestExceptionHandler {
         message.put("message", e.getMessage());
         message.put("status", HttpStatus.INTERNAL_SERVER_ERROR.toString());
         message.put("timestamp", LocalDateTime.now().toString());
-        return ResponseEntity.internalServerError().body(message);
+        return ResponseEntity.badRequest().body(message);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
